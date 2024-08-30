@@ -1,7 +1,15 @@
-# SSHPLUS
+# SCRIPT BASADO EN SSHPLUS
 
-codigo libre.. lo pueden editar a gusto
+### INSTALACIÓN:
 
-script  en telegram
-Canal en telegram sobre VPS droplet
-@vps10 
+```
+apt update -y && apt upgrade -y && wget https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/Plus && chmod 777 Plus && ./Plus
+```
+
+---
+
+#### Ingresar como Root
+
+```
+wget https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/senharoot.sh && chmod 777 senharoot.sh && ./senharoot.sh
+```
