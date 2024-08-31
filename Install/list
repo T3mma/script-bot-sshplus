@@ -2,7 +2,7 @@
 #====================================================
 #	@T3mma
 #====================================================
-_lvk=$(wget -qO- https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/Sistema/version)
+_lvk=$(wget -qO- https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/Install/version)
 IP=$(wget -qO- ipv4.icanhazip.com)
 IP2=$(wget -qO- http://whatismyip.akamai.com/)
 [[ "$IP" != "$IP2" ]] && ipdovps="$IP2" || ipdovps="$IP"
