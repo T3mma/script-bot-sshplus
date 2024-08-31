@@ -2,15 +2,15 @@
 #
 # rc.local
 #
-# Este script é executado no final de cada nível de execução multiusuário.
-# Certifique-se de que o script "sairá 0" em caso de sucesso ou qualquer outro
-# valor em caso de erro.
+# Este script se ejecuta al final de cada nivel de ejecución multiusuario.
+# Asegúrese de que el script "salga con 0" en caso de éxito o con cualquier otro
+# valor en caso de error.
 #
-# Para habilitar ou desabilitar este script basta alterar a execução
-# bits.
+# Para habilitar o deshabilitar este script, basta con cambiar los
+# permisos de ejecución.
 #
-# Por padrão, esse script não faz nada.
-iptables -I INPUT -p udp --dport 5300 -j ACCEPT 
+# Por defecto, este script no hace nada.
+iptables -I INPUT -p udp --dport 5300 -j ACCEPT
 iptables -t nat -I PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 5300
 cd /etc/slowdns && ./startdns
 exit 0
