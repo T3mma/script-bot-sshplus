@@ -79,7 +79,7 @@ crontab -r >/dev/null 2>&1
 	echo "* * * * * /etc/autostart"
 	echo "0 */6 * * * /bin/uexpired"
 ) | crontab -
-echo "$_lvk" | sed -n '1 p' | cut -d' ' -f2 >/bin/versao && cat /bin/versao >/home/sshplus
+echo "$_lvk" | sed -n '1 p' | cut -d' ' -f2 >/bin/version && cat /bin/version >/home/sshplus
 wget https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/Install/jq-linux64 >/dev/null 2>&1
 chmod +x jq-linux64 && mv jq-linux64 $(which jq)
 service cron restart >/dev/null 2>&1

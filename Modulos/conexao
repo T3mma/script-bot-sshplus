@@ -129,7 +129,7 @@ SCOLOR='\e[0m'
 				echo -e "\n\e[1;32mINSTALANDO SQUID PROXY\e[0m\n"
 				fun_bar 'apt update -y' "apt install squid3 -y"
 			} || {
-				echo -e "\n\e[1;31m[\e[1;36m1\e[1;31m] \e[1;37m• \e[1;33mSQUID VERSAO 3.3.X\n\e[1;31m[\e[1;36m2\e[1;31m] \e[1;37m• \e[1;33mSQUID VERSAO 3.5.X\e[0m\n"
+				echo -e "\n\e[1;31m[\e[1;36m1\e[1;31m] \e[1;37m• \e[1;33mSQUID VERSION 3.3.X\n\e[1;31m[\e[1;36m2\e[1;31m] \e[1;37m• \e[1;33mSQUID VERSION 3.5.X\e[0m\n"
 				read -p "$(echo -e "\e[1;32mINFORME UNA OPCION \e[1;37m: ")" -e -i 1 opc
 				[[ -z "$opc" ]] && {
 					echo -e "\n\e[1;31mOpcao invalida!"
