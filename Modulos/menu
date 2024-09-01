@@ -493,5 +493,5 @@ menu() {
       esac
    done
 }
-menu
+#menu
 #fim
