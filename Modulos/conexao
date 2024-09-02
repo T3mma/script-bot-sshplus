@@ -1514,7 +1514,7 @@ SCOLOR='\e[0m'
 				udpmenu
 				;;
 			8 | 08)
-				ws-epro-install
+				wseproinstall
 				;;
 			9 | 09)
 				slow_setup
