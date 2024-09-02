@@ -1535,6 +1535,7 @@ SCOLOR='\e[0m'
 				sleep 1
 				clear
 				exit
+				exit
 				;;
 			*)
 				echo -e "\e[1;31mOPCION INVÁLIDA !\e[0m"
