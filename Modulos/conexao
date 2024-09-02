@@ -1511,10 +1511,10 @@ SCOLOR='\e[0m'
 				inst_ssl
 				;;
 			7 | 07)
-				udpmenu
+				udp-menu
 				;;
 			8 | 08)
-				wseproinstall
+				ws-epro-install
 				;;
 			9 | 09)
 				slow_setup

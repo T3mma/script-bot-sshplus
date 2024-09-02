@@ -62,7 +62,7 @@ case $n in
    menu
    ;;
 8 | 08)
-   udpmenu
+   udp-menu
    ;;
 0 | 00)
    menu
