@@ -1401,7 +1401,7 @@ SCOLOR='\e[0m'
 		while true $x != "ok"; do
 			[[ ! -e '/home/sshplus' ]] && exit 0
 			clear
-			echo -e "\E[44;1;37m            SSHPLUS 🇦🇷 @diegovip7               \E[0m\n"
+			echo -e "\E[44;1;37m            SSHPLUS 🇦🇷 @T3MMA               \E[0m\n"
 			echo -e "\e[1;32mSERVICIO: \e[1;33mOPENSSH \e[1;32mPUERTO: \e[1;37m$(grep 'Port' /etc/ssh/sshd_config | cut -d' ' -f2 | grep -v 'no' | xargs)" && sts6="\e[1;32m◉ "
 			[[ "$(netstat -tlpn | grep 'ws-epro' | wc -l)" != '0' ]] && {
 				echo -e "\e[1;32mSERVICIO: \e[1;33mWS-EPRO: \e[1;32mPUERTO: \e[1;37m$(netstat -nplt | grep 'ws-epro' | awk {'print $4'} | cut -d: -f2 | xargs)"
@@ -1511,11 +1511,10 @@ SCOLOR='\e[0m'
 				inst_ssl
 				;;
 			7 | 07)
-				sudo rm -rf /root/holamundo.sh &&
-					wget https://raw.githubusercontent.com/vpsvip7/2d/main/holamundo.sh && chmod 777 holamundo.sh && ./holamundo.sh
+				udpinstall
 				;;
 			8 | 08)
-				wget 'https://raw.githubusercontent.com/vpsvip7/2d/main/install-ws.bin' -O 'install-ws' && chmod +x install-ws && ./install-ws
+				ws-epro-install
 				;;
 			9 | 09)
 				slow_setup
@@ -1525,7 +1524,7 @@ SCOLOR='\e[0m'
 				exit
 				;;
 			11 | 11)
-				source <(curl -sL https://raw.githubusercontent.com/vpsvip7/2d/main/wondershaper.sh)
+				wondershaper
 				;;
 			12 | 12)
 				menu
@@ -1534,6 +1533,8 @@ SCOLOR='\e[0m'
 				echo -e "\e[1;31mSALIENDO...\e[0m"
 				sleep 1
 				clear
+				exit
+				exit
 				exit
 				exit
 				;;
