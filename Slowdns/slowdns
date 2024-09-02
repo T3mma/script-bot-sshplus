@@ -29,24 +29,24 @@ slowdns() {
     echo -e "\033[0;31m[\e[0;33m09\e[0;31m]\033[m | Remover SlowDNS"
     echo -e "\033[0;31m[\e[0;33m10\e[0;31m]\033[m | Actualizar/Reinstalar"
     echo -e "\033[0;31m[\e[0;33m11\e[0;31m]\033[m | Remover Script"
-    echo -e "\033[0;31m[\e[0;33m11\e[0;31m]\033[m | Volver al menú principal"
-    echo -e "\033[0;31m[\e[0;33m00\e[0;31m]\033[m | SALIR"
+    echo -e "\033[0;31m[\e[0;33m12\e[0;31m]\033[m | Atrás"
+    echo -e "\033[0;31m[\e[0;33m13\e[0;31m]\033[m | Volver al menú principal"
     echo ""
     echo -ne "\033[0;36mQue desea hacer?:\0033[m " && read opcion
     case $opcion in
-    1) Opcion1 ;;
-    2) Opcion2 ;;
-    3) Opcion3 ;;
-    4) Opcion4 ;;
-    5) Opcion5 ;;
-    6) Opcion6 ;;
-    7) Opcion7 ;;
-    8) Opcion8 ;;
-    9) Opcion9 ;;
+    1 | 01) Opcion1 ;;
+    2 | 02) Opcion2 ;;
+    3 | 03) Opcion3 ;;
+    4 | 04) Opcion4 ;;
+    5 | 05) Opcion5 ;;
+    6 | 06) Opcion6 ;;
+    7 | 07) Opcion7 ;;
+    8 | 08) Opcion8 ;;
+    9 | 09) Opcion9 ;;
     10) Opcion10 ;;
     11) Opcion11 ;;
     12) Opcion12 ;;
-    0) Salir ;;
+    13) Opcion13 ;;
     *)
         "Opcion incorrecta"
         echo
@@ -116,12 +116,12 @@ Opcion11() {
     rm /bin/slowdns
 }
 Opcion12() {
-    menu
-}
-
-Salir() {
     clear
     exit
+}
+
+Opcion13() {
+    menu
 }
 clear
 slowdns
