@@ -15,8 +15,7 @@ echo -e "\e[1;31m[\e[1;36m01\e[1;31m] \e[1;37m• \e[1;33mINICIAR o REINICIAR PS
 [\e[1;36m06\e[1;31m] \e[1;37m• \e[1;33mVER CONECTADOS \e[1;31m
 [\e[1;36m07\e[1;31m] \e[1;37m• \e[1;33mLIMPIAR RAM \e[1;31m
 [\e[1;36m08\e[1;31m] \e[1;37m• \e[1;33mBORRAR PSIPHON ❌\e[1;31m
-[\e[1;36m09\033[1;31m] \033[1;37m• \033[1;33mVOLVER \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
-[\e[1;36m10\e[1;31m] \e[1;37m• \e[1;33mSALIR ❌ \e[1;31m"
+[\e[1;36m09\033[1;31m] \033[1;37m• \033[1;33mVOLVER \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m"
 echo ""
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\033[0m"
 echo ""
@@ -80,10 +79,5 @@ case $n in
 9 | 09)
    menu
    ;;
-10)
-   clear
-   exit
-   exit
-   ;;
-*) echo "OPCIÓN INCORRECTA " ;;
+*) echo "OPCIÓN INCORRECTA" ;;
 esac
