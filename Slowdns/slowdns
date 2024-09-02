@@ -29,6 +29,7 @@ slowdns() {
     echo -e "\033[0;31m[\e[0;33m09\e[0;31m]\033[m | Remover SlowDNS"
     echo -e "\033[0;31m[\e[0;33m10\e[0;31m]\033[m | Actualizar/Reinstalar"
     echo -e "\033[0;31m[\e[0;33m11\e[0;31m]\033[m | Remover Script"
+    echo -e "\033[0;31m[\e[0;33m11\e[0;31m]\033[m | Volver al menú principal"
     echo -e "\033[0;31m[\e[0;33m00\e[0;31m]\033[m | SALIR"
     echo ""
     echo -ne "\033[0;36mQue desea hacer?:\0033[m " && read opcion
@@ -44,6 +45,7 @@ slowdns() {
     9) Opcion9 ;;
     10) Opcion10 ;;
     11) Opcion11 ;;
+    12) Opcion12 ;;
     0) Salir ;;
     *)
         "Opcion incorrecta"
@@ -112,6 +114,9 @@ Opcion11() {
     echo -e "\033[0;31mSlowDNS Manager Desinstalado!\033[0m"
     sleep 2
     rm /bin/slowdns
+}
+Opcion12() {
+    menu
 }
 
 Salir() {
