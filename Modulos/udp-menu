@@ -14,8 +14,8 @@ echo -e "\e[1;31m[\e[1;36m01\e[1;31m] \e[1;37m• \e[1;33mUDP DEBIAN
 \e[1;31m[\e[1;36m05\e[1;31m] \e[1;37m• \e[1;33mUDP AUTO INSTALACION
 \e[1;31m[\e[1;36m06\e[1;31m] \e[1;37m• \e[1;33mIR A Menu UDP
 \e[1;31m[\e[1;36m07\e[1;31m] \e[1;37m• \e[1;33mUDP Redjoker256
-\e[1;31m[\e[1;36m08\e[1;31m] \e[1;37m• \e[1;33mVOLVER AL MENU
-\e[1;31m[\e[1;36m00\e[1;31m] \e[1;37m• \e[1;33mSALIR ❌"
+\e[1;31m[\e[1;36m08\e[1;31m] \e[1;37m• \e[1;33mATRÁS
+\e[1;31m[\e[1;36m00\e[1;31m] \e[1;37m• \e[1;33mVOVER AL MENÚ PRINCIPAL"
 echo ""
 echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\\033[0m"
 echo ""
@@ -25,7 +25,6 @@ read n
 case $n in
 1 | 01)
    clear
-
    rm -rf /root/install.sh && wget https://raw.githubusercontent.com/vpsvip7/1s/main/install.sh && chmod 777 install.sh && ./install.sh
    echo -ne "\n\033[1;31mListo \033[1;33mComando menu  \033[1;32mPara terminar de instalar!\033[0m"
    read
@@ -63,10 +62,10 @@ case $n in
    menu
    ;;
 8 | 08)
-   menu
+   udp-menu
    ;;
 0 | 00)
-   exit
+   menu
    ;;
 *) echo "Opción Incorrecta" ;;
 esac

@@ -1511,7 +1511,7 @@ SCOLOR='\e[0m'
 				inst_ssl
 				;;
 			7 | 07)
-				udpinstall
+				udp-menu
 				;;
 			8 | 08)
 				ws-epro-install
