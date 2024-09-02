@@ -91,12 +91,12 @@ SCOLOR='\e[0m'
 				}
 				fun_bar 'rem_sqd'
 				echo -e "\n\e[1;32mSQUID REMOVIDO CON SUCESSO !\e[0m"
-				sleep 2
+				sleep 1
 				clear
 				fun_conexao
 			} || {
 				echo -e "\n\e[1;31mRetornando...\e[0m"
-				sleep 2
+				sleep 1
 				clear
 				fun_conexao
 			}
@@ -133,13 +133,13 @@ SCOLOR='\e[0m'
 				read -p "$(echo -e "\e[1;32mINFORME UNA OPCION \e[1;37m: ")" -e -i 1 opc
 				[[ -z "$opc" ]] && {
 					echo -e "\n\e[1;31mOpcao invalida!"
-					sleep 2
+					sleep 1
 					fun_conexao
 				}
 				[[ "$opc" != '1' ]] && {
 					[[ "$opc" != '2' ]] && {
 						echo -e "\n\e[1;31mOpcao invalida !"
-						sleep 2
+						sleep 1
 						fun_conexao
 					}
 				}
@@ -154,7 +154,7 @@ SCOLOR='\e[0m'
 				var_pay="/etc/squid3/payload.txt"
 			else
 				echo -e "\n\e[1;33m[\e[1;31mERRO\e[1;33m]\e[1;37m: \e[1;33mO SQUID PROXY CORROMPIDO\e[0m"
-				sleep 2
+				sleep 1
 				fun_conexao
 			fi
 			cat <<-EOF >$var_pay
@@ -207,7 +207,7 @@ SCOLOR='\e[0m'
 			echo ""
 			fun_bar 'sqd_conf'
 			echo -e "\n\e[1;32mSQUID INSTALADO CON EXITO!\e[0m"
-			sleep 2.5s
+			sleep 2s
 			fun_conexao
 		fi
 	}
@@ -222,7 +222,7 @@ SCOLOR='\e[0m'
 		else
 			echo -e "\n\e[1;31mSQUID NO ESTA INSTALADO!\e[0m"
 			echo -e "\n\e[1;31mRetornando...\e[0m"
-			sleep 2
+			sleep 1
 			clear
 			fun_squid
 		fi
@@ -230,7 +230,7 @@ SCOLOR='\e[0m'
 		read pt
 		[[ -z "$pt" ]] && {
 			echo -e "\n\e[1;31mPorta invalida!"
-			sleep 2
+			sleep 1
 			clear
 			fun_conexao
 		}
@@ -258,7 +258,7 @@ SCOLOR='\e[0m'
 		else
 			echo -e "\n\e[1;31mSQUID NAO ESTA INSTALADO!\e[0m"
 			echo -e "\n\e[1;31mRetornando...\e[0m"
-			sleep 2
+			sleep 1
 			clear
 			fun_squid
 		fi
@@ -266,7 +266,7 @@ SCOLOR='\e[0m'
 		read pt
 		[[ -z "$pt" ]] && {
 			echo -e "\n\e[1;31mPorta invalida!"
-			sleep 2
+			sleep 1
 			clear
 			fun_conexao
 		}
@@ -325,7 +325,7 @@ SCOLOR='\e[0m'
 			;;
 		*)
 			echo -e "\e[1;31mOpcao Invalida...\e[0m"
-			sleep 2
+			sleep 1
 			fun_conexao
 			;;
 		esac
@@ -408,11 +408,11 @@ SCOLOR='\e[0m'
 				fun_conexao
 			elif [[ "$resposta" = '0' ]]; then
 				echo -e "\n\e[1;31mRetornando...\e[0m"
-				sleep 2
+				sleep 1
 				fun_conexao
 			else
 				echo -e "\n\e[1;31mOpcao invalida...\e[0m"
-				sleep 2
+				sleep 1
 				fun_conexao
 			fi
 		else
@@ -462,7 +462,7 @@ SCOLOR='\e[0m'
 				fun_bar 'fun_ondrop' 'sleep 1'
 				echo -e "\n\e[1;32mINSTALACION CONCLUIDA \e[1;33mPORTA: \e[1;37m$porta\e[0m"
 				[[ $(grep -c "/bin/false" /etc/shells) = '0' ]] && echo "/bin/false" >>/etc/shells
-				sleep 2
+				sleep 1
 				clear
 				fun_conexao
 			} || {
@@ -487,7 +487,7 @@ SCOLOR='\e[0m'
 			read resp
 			[[ "$resp" != @(s|sim|S|SIM) ]] && {
 				echo -e "\n${RED}Retornando...${SCOLOR}"
-				sleep 2
+				sleep 1
 				conexao
 			}
 			v2rayinst
@@ -498,7 +498,7 @@ SCOLOR='\e[0m'
 			read resp
 			[[ "$resp" != @(s|sim|S|SIM) ]] && {
 				echo -e "\n${RED}Retornando...${SCOLOR}"
-				sleep 2
+				sleep 1
 				conexao
 			}
 			v2rayinst
@@ -559,7 +559,7 @@ SCOLOR='\e[0m'
 				read resp
 				[[ "$resp" != @(s|sim|S|SIM) ]] && {
 					echo -e "\n${RED}Retornando...${SCOLOR}"
-					sleep 2
+					sleep 1
 					conexao
 				}
 				echo -e "\n\e[1;32mSuportado Ubuntu 16+\e[1;33m"
@@ -672,7 +672,7 @@ SCOLOR='\e[0m'
 				[[ -z "$porta" ]] && {
 					echo ""
 					echo -e "\e[1;31mPorta invalida!"
-					sleep 2
+					sleep 1
 					clear
 					fun_conexao
 				}
@@ -809,11 +809,11 @@ SCOLOR='\e[0m'
 				cd $HOME
 				clear
 				echo -e "Corrigido"
-				sleep 2
+				sleep 1
 				fun_conexao
 			} || {
 				echo -e "\n\e[1;31mRetornando...\e[0m"
-				sleep 2
+				sleep 1
 				clear
 				fun_conexao
 			}
@@ -994,7 +994,7 @@ SCOLOR='\e[0m'
 				fun_bar 'fun_socksopenoff'
 				echo ""
 				echo -e "\e[1;32mSOCKS DESATIVADO CON SUCESSO!\e[1;33m"
-				sleep 2
+				sleep 1
 				fun_socks
 			else
 				clear
@@ -1005,7 +1005,7 @@ SCOLOR='\e[0m'
 				[[ -z "$porta" ]] && {
 					echo ""
 					echo -e "\e[1;31mPorta invalida!"
-					sleep 2
+					sleep 1
 					clear
 					fun_conexao
 				}
@@ -1047,7 +1047,7 @@ SCOLOR='\e[0m'
 				[[ -z "$porta" ]] && {
 					echo ""
 					echo -e "\e[1;31mPorta invalida!"
-					sleep 2
+					sleep 1
 					clear
 					fun_conexao
 				}
@@ -1063,12 +1063,12 @@ SCOLOR='\e[0m'
 				fun_bar 'abrirptsks'
 				echo ""
 				echo -e "\e[1;32mPROXY SOCKS ATIVADO CON SUCESSO\e[1;33m"
-				sleep 2
+				sleep 1
 				fun_socks
 			else
 				clear
 				echo -e "\e[1;31mFUNCION NO DISPONIBLE\n\n\e[1;33mACTIVE  SOCKS PRIMERO !\e[1;33m"
-				sleep 2
+				sleep 1
 				fun_socks
 			fi
 		elif [[ "$resposta" = '5' ]]; then
@@ -1083,12 +1083,12 @@ SCOLOR='\e[0m'
 				read msgg
 				[[ -z "$msgg" ]] && {
 					echo -e "\n\e[1;31mStatus invalido!"
-					sleep 2
+					sleep 1
 					fun_conexao
 				}
 				[[ ${msgg} != ?(+|-)+([a-zA-Z0-9-. ]) ]] && {
 					echo -e "\n\e[1;31m[\e[1;33m!\e[1;31m]\e[1;33m EVITE CARACTERES ESPECIAIS\e[0m"
-					sleep 2
+					sleep 1
 					fun_socks
 				}
 				echo -e "\n\e[1;31m[\e[1;36m01\e[1;31m]\e[1;33m AZUL"
@@ -1158,12 +1158,12 @@ SCOLOR='\e[0m'
 				fun_bar 'restartsocks'
 				echo ""
 				echo -e "\e[1;32mSTATUS ALTERADO CON SUCESSO!"
-				sleep 2
+				sleep 1
 				fun_socks
 			else
 				clear
 				echo -e "\e[1;31mFUNCION NO  DISPONIBLE\n\n\e[1;33mACTIVE  SOCKS SSH PRIMERO !\e[1;33m"
-				sleep 2
+				sleep 1
 				fun_socks
 			fi
 		elif [[ "$resposta" = '6' ]]; then
@@ -1178,12 +1178,12 @@ SCOLOR='\e[0m'
 				read msgg
 				[[ -z "$msgg" ]] && {
 					echo -e "\n\e[1;31mStatus invalido!"
-					sleep 2
+					sleep 1
 					fun_conexao
 				}
 				[[ ${msgg} != ?(+|-)+([a-zA-Z0-9-. ]) ]] && {
 					echo -e "\n\e[1;31m[\e[1;33m!\e[1;31m]\e[1;33m EVITE CARACTERES ESPECIAIS\e[0m"
-					sleep 2
+					sleep 1
 					fun_socks
 				}
 				echo -e "\n\e[1;31m[\e[1;36m01\e[1;31m]\e[1;33m AZUL"
@@ -1253,12 +1253,12 @@ SCOLOR='\e[0m'
 				fun_bar 'restartwssocks'
 				echo ""
 				echo -e "\e[1;32mSTATUS ALTERADO COM SUCESSO!"
-				sleep 2
+				sleep 1
 				fun_socks
 			else
 				clear
 				echo -e "\e[1;31mFUNCION NO DISPONIBLE\n\n\e[1;33mACTIVE  WEBSOCKET PRIMERO !\e[1;33m"
-				sleep 2
+				sleep 1
 				fun_socks
 			fi
 		elif [[ "$resposta" = '0' ]]; then
@@ -1314,7 +1314,7 @@ SCOLOR='\e[0m'
 			read pt
 			[[ -z "$pt" ]] && {
 				echo -e "\n\e[1;31mPorta invalida!"
-				sleep 2
+				sleep 1
 				fun_conexao
 			}
 			[[ $(grep -wc "$pt" '/etc/ssh/sshd_config') != '0' ]] && {
@@ -1326,20 +1326,20 @@ SCOLOR='\e[0m'
 				}
 				fun_bar 'fun_delpssh'
 				echo -e "\n\e[1;32mPORTA REMOVIDA COM SUCESSO\e[0m"
-				sleep 2
+				sleep 1
 				fun_conexao
 			} || {
 				echo -e "\n\e[1;31mPorta invalida!"
-				sleep 2
+				sleep 1
 				fun_conexao
 			}
 		elif [[ "$resp" = '3' ]]; then
 			echo -e "\n\e[1;31mRetornando.."
-			sleep 2
+			sleep 1
 			fun_conexao
 		else
 			echo -e "\n\e[1;31mOpcao invalida!"
-			sleep 2
+			sleep 1
 			fun_conexao
 		fi
 	}
@@ -1369,7 +1369,7 @@ SCOLOR='\e[0m'
 				fun_conexao
 			} || {
 				echo -e "\n\e[1;31mRetornando.."
-				sleep 2
+				sleep 1
 				fun_conexao
 			}
 		} || {
@@ -1386,11 +1386,11 @@ SCOLOR='\e[0m'
 				echo -e "\n\e[1;32mREMOVENDO O SSLH !\e[0m\n"
 				fun_bar 'fun_delsslh'
 				echo -e "\n\e[1;32mREMOVIDO CON EXITO !\e[0m\n"
-				sleep 2
+				sleep 1
 				fun_conexao
 			} || {
 				echo -e "\n\e[1;31mRetornando.."
-				sleep 2
+				sleep 1
 				fun_conexao
 			}
 		}
@@ -1481,9 +1481,8 @@ SCOLOR='\e[0m'
 [\033[1;36m09\033[1;31m] \033[1;37m• \033[1;33mMENU SLOWDNS $sts9\033[1;31m
 [\033[1;36m10\033[1;31m] \033[1;37m• \033[1;33mMENU V2RAY $xv2ray\033[1;31m
 [\033[1;36m11\033[1;31m] \033[1;37m• \033[1;33mWONDERSHAPER $trojansts\033[1;31m
-[\033[1;36m12\033[1;31m] \033[1;37m• \033[1;33mVOLVER AL MENU Inicial \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
-[\033[1;36m13\033[1;31m] \033[1;37m• \033[1;33mMENU 3 \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
-[\033[1;36m00\033[1;31m] \033[1;37m• \033[1;33mSALIR \033[1;32m<\033[1;33m<\033[1;31m< \033[0m"
+[\033[1;36m12\033[1;31m] \033[1;37m• \033[1;33mATRÁS - MENU INICIAL \033[1;32m<\033[1;33m<\033[1;31m< \033[1;31m
+[\033[1;36m00\033[1;31m] \033[1;37m• \033[1;33mSALIR❌ \033[1;32m<\033[1;33m<\033[1;31m< \033[0m"
 			echo ""
 			echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
 			echo ""
@@ -1531,18 +1530,15 @@ SCOLOR='\e[0m'
 			12 | 12)
 				menu
 				;;
-			13 | 13)
-				menu2
-				;;
 			0 | 00)
 				echo -e "\e[1;31mSALIENDO...\e[0m"
-				sleep 2
+				sleep 1
 				clear
 				exit
 				;;
 			*)
-				echo -e "\e[1;31mOPCION INVALIDAD !\e[0m"
-				sleep 2
+				echo -e "\e[1;31mOPCION INVÁLIDA !\e[0m"
+				sleep 1
 				;;
 			esac
 		done

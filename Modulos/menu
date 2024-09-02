@@ -441,9 +441,6 @@ menu() {
          ;;
       13)
          clear
-         wget https://raw.githubusercontent.com/T3mma/auto-installs/main/token.sh
-         chmod 755 *
-         mv token.sh /bin/token
          token
          ;;
       14)
@@ -458,7 +455,7 @@ menu() {
          read
          ;;
       16)
-         source <(curl -sL https://raw.githubusercontent.com/T3mma/auto-installs/main/menupsiphon.sh)
+         menupsiphon
          ;;
       17)
          limit_ssh
