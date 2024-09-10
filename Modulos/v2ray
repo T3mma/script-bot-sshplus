@@ -5,7 +5,7 @@
 # Tiempo de ejecución de la tarea programada en Argentina(0~23)
 ARGENTINA_UPDATE_TIME=-3
 
-#Registrar la ruta en la que se ejecutó el script por primera vez
+# Registrar la ruta en la que se ejecutó el script por primera vez
 BEGIN_PATH=$(pwd)
 
 # Método de instalación, 0 para instalación nueva, 1 para actualizar manteniendo la configuración de v2ray
@@ -95,7 +95,12 @@ removeV2Ray() {
     bash <(curl -L -s $CLEAN_IPTABLES_SHELL)
 
     # Desinstalar multi-v2ray
-    pip uninstall v2ray_util -y
+    if [[ $(command -v pipx) ]]; then
+        pipx uninstall v2ray_util
+    else
+        pip uninstall v2ray_util -y
+    fi
+
     rm -rf /usr/share/bash-completion/completions/v2ray.bash >/dev/null 2>&1
     rm -rf /usr/share/bash-completion/completions/v2ray >/dev/null 2>&1
     rm -rf /usr/share/bash-completion/completions/xray >/dev/null 2>&1
@@ -158,14 +163,28 @@ installDependent() {
         ${PACKAGE_MANAGER} install socat cron bash-completion ntpdate -y
     fi
 
-    #install python3 & pip
+    # Instalar python3 & pip/pipx
     source <(curl -sL https://python3.netlify.app/install.sh)
+
+    # Verificar si es Ubuntu Server 24.04 o superior
+    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+        if ! command -v pipx >/dev/null 2>&1; then
+            pip install pipx
+        fi
+        pipx install v2ray_util
+    else
+        pip install -U v2ray_util
+    fi
 }
 
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
-    pip install -U v2ray_util
+    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+        pipx install -U v2ray_util
+    else
+        pip install -U v2ray_util
+    fi
 
     if [[ -e $UTIL_PATH ]]; then
         [[ -z $(cat $UTIL_PATH | grep lang) ]] && echo "lang=en" >>$UTIL_PATH
@@ -215,7 +234,6 @@ timeSync() {
 }
 
 profileInit() {
-
     # Limpiar las variables de entorno del módulo v2ray
     [[ $(grep v2ray ~/$ENV_FILE) ]] && sed -i '/v2ray/d' ~/$ENV_FILE && source ~/$ENV_FILE
 
@@ -235,36 +253,24 @@ installFinish() {
     [[ ${INSTALL_WAY} == 0 ]] && WAY="install" || WAY="update"
     colorEcho ${GREEN} "¡multi-v2ray ${WAY} exitoso!\n"
 
-    if [[ ${INSTALL_WAY} == 0 ]]; then
+    if ([[ ${INSTALL_WAY} == 0 ]]); then
         clear
-
         echo -e "\n\033[1;32mV2RAY INSTALADO CON EXITO !\033[0m"
         v2ray info
-
         echo -e "ESCRIBA  'v2ray' para ir al menu v2ray\n"
     fi
 }
 
 main() {
-
     [[ ${HELP} == 1 ]] && help && return
-
     [[ ${REMOVE} == 1 ]] && removeV2Ray && return
-
     [[ ${INSTALL_WAY} == 0 ]] && colorEcho ${BLUE} "new install\n"
-
     checkSys
-
     installDependent
-
     closeSELinux
-
     timeSync
-
     updateProject
-
     profileInit
-
     installFinish
 }
 
