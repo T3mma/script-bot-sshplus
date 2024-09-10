@@ -446,7 +446,7 @@ menu() {
       14)
          clear
          netstat -ntpl
-         echo -ne "\n\033[1;31mENTER \033[1;33mPARA VOLVET AL \033[1;32mMENU!\033[0m"
+         echo -ne "\n\033[1;31mENTER \033[1;33mPARA VOLVER AL \033[1;32mMENU!\033[0m"
          read
          ;;
       15)
