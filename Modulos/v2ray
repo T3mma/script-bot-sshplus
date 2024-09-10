@@ -52,20 +52,25 @@ while [[ $# > 0 ]]; do
     --remove)
         REMOVE=1
         ;;
+
     -h | --help)
         HELP=1
         ;;
+
     -k | --keep)
         INSTALL_WAY=1
         colorEcho ${BLUE} "mantener configuración actualizada\n"
         ;;
+
     --zh)
         CHINESE=1
         colorEcho ${BLUE} "Instalando la versión en chino..\n"
         ;;
+
     *)
         # unknown option
         ;;
+
     esac
     shift # past argument or value
 done
@@ -163,25 +168,29 @@ installDependent() {
         ${PACKAGE_MANAGER} install socat cron bash-completion ntpdate -y
     fi
 
-    # Instalar python3 & pip/pipx
+    # Instalar python3 & pip
     source <(curl -sL https://python3.netlify.app/install.sh)
 
     # Verificar si es Ubuntu Server 24.04 o superior
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+        # Instalar y configurar pipx
         if ! command -v pipx >/dev/null 2>&1; then
-            pip install pipx
+            python3 -m pip install --user pipx
+            python3 -m pipx ensurepath
         fi
-        pipx install v2ray_util
-    else
-        pip install -U v2ray_util
     fi
 }
 
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
+    # Verificar si es Ubuntu Server 24.04 o superior
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        pipx install -U v2ray_util
+        # Usar entorno virtual para instalar v2ray_util
+        python3 -m venv myenv
+        source myenv/bin/activate
+        pip install -U pip
+        pip install -U v2ray_util
     else
         pip install -U v2ray_util
     fi
