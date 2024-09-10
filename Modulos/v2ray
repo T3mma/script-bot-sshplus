@@ -173,24 +173,27 @@ installDependent() {
 
     # Verificar si es Ubuntu Server 24.04 o superior
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Instalar y configurar pipx
-        if ! command -v pipx >/dev/null 2>&1; then
-            python3 -m pip install --user pipx
-            python3 -m pipx ensurepath
-        fi
+        # Crear entorno virtual
+        python3 -m venv myenv
+        source myenv/bin/activate
+        # Instalar pipx en el entorno virtual
+        pip install --upgrade pip
+        pip install pipx
+        pipx ensurepath
+        deactivate
     fi
 }
 
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
-    # Verificar si es Ubuntu Server 24.04 o superior
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Usar entorno virtual para instalar v2ray_util
+        # Crear entorno virtual para la instalación
         python3 -m venv myenv
         source myenv/bin/activate
-        pip install -U pip
+        pip install --upgrade pip
         pip install -U v2ray_util
+        deactivate
     else
         pip install -U v2ray_util
     fi
