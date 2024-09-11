@@ -83,6 +83,11 @@ removeV2Ray() {
     bash <(curl -L -s $CLEAN_IPTABLES_SHELL)
 
     # Desinstalar multi-v2ray
+    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+        pipx uninstall -U v2ray_util
+    else
+        pip uninstall v2ray_util -y
+    fi
     pip uninstall v2ray_util -y
     rm -rf /usr/share/bash-completion/completions/v2ray.bash >/dev/null 2>&1
     rm -rf /usr/share/bash-completion/completions/v2ray >/dev/null 2>&1
@@ -154,10 +159,13 @@ updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        apt install python3-venv
-        python3 -m venv v2ray_env
-        source v2ray_env/bin/activate
-        pip install -U v2ray_util
+        apt install pipx
+        pipx ensurepath
+        pipx install v2ray_util
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >>~/.bashrc
+        source ~/.bashrc
+        sudo ln -s $(which v2ray-util) /usr/local/bin/v2ray
+        source ~/.bashrc
     else
         pip install -U v2ray_util
     fi
