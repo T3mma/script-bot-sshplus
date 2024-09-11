@@ -14,7 +14,6 @@ INSTALL_WAY=0
 # Definir variable de operación, 0 para no, 1 para sí
 HELP=0
 REMOVE=0
-CHINESE=0
 
 BASE_SOURCE_PATH="https://multi.netlify.app"
 UTIL_PATH="/etc/v2ray_util/util.cfg"
@@ -149,29 +148,12 @@ installDependent() {
     # Instalar python3 & pip
     source <(curl -sL https://python3.netlify.app/install.sh)
 
-    # Verificar si es Ubuntu Server 24.04 o superior
-    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Instalar y configurar pipx
-        if ! command -v pipx >/dev/null 2>&1; then
-            python3 -m pip install --user pipx
-            python3 -m pipx ensurepath
-        fi
-    fi
 }
 
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
-    # Verificar si es Ubuntu Server 24.04 o superior
-    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Crear entorno virtual para la instalación
-        python3 -m venv myenv
-        source myenv/bin/activate
-        pip install -U pip
-        pip install -U v2ray_util
-    else
-        pip install -U v2ray_util
-    fi
+    pip install -U v2ray_util
 
     if [[ -e $UTIL_PATH ]]; then
         [[ -z $(cat $UTIL_PATH | grep lang) ]] && echo "lang=en" >>$UTIL_PATH
@@ -180,13 +162,16 @@ updateProject() {
         curl $UTIL_CFG >$UTIL_PATH
     fi
 
-    [[ $CHINESE == 1 ]] && sed -i "s/lang=en/lang=zh/g" $UTIL_PATH
-
     rm -f /usr/local/bin/v2ray >/dev/null 2>&1
     ln -s $(which v2ray-util) /usr/local/bin/v2ray
     rm -f /usr/local/bin/xray >/dev/null 2>&1
     ln -s $(which v2ray-util) /usr/local/bin/xray
 
+    # Eliminar el antiguo script de bash_completion de v2ray
+    [[ -e /etc/bash_completion.d/v2ray.bash ]] && rm -f /etc/bash_completion.d/v2ray.bash
+    [[ -e /usr/share/bash-completion/completions/v2ray.bash ]] && rm -f /usr/share/bash-completion/completions/v2ray.bash
+
+    # Actualizar el script de bash_completion de v2ray
     curl $BASH_COMPLETION_SHELL >/usr/share/bash-completion/completions/v2ray
     curl $BASH_COMPLETION_SHELL >/usr/share/bash-completion/completions/xray
     if [[ -z $(echo $SHELL | grep zsh) ]]; then
@@ -194,9 +179,11 @@ updateProject() {
         source /usr/share/bash-completion/completions/xray
     fi
 
+    # Instalar el programa principal de V2ray
     [[ ${INSTALL_WAY} == 0 ]] && bash <(curl -L -s https://multi.netlify.app/go.sh)
 }
 
+# Sincronización de tiempo
 timeSync() {
     if [[ ${INSTALL_WAY} == 0 ]]; then
         echo -e "${Info} Sincronizando el tiempo.. ${Font}"
@@ -214,13 +201,20 @@ timeSync() {
 }
 
 profileInit() {
+
+    # Limpiar las variables de entorno del módulo v2ray
     [[ $(grep v2ray ~/$ENV_FILE) ]] && sed -i '/v2ray/d' ~/$ENV_FILE && source ~/$ENV_FILE
+
+    # Resolver el problema de visualización de caracteres latinos en Python3
     [[ -z $(grep PYTHONIOENCODING=utf-8 ~/$ENV_FILE) ]] && echo "export PYTHONIOENCODING=utf-8" >>~/$ENV_FILE && source ~/$ENV_FILE
+
+    # Nueva configuración para una instalación desde cero
     [[ ${INSTALL_WAY} == 0 ]] && v2ray new
     echo ""
 }
 
 installFinish() {
+    # Volver al punto de partida
     cd ${BEGIN_PATH}
     [[ ${INSTALL_WAY} == 0 ]] && WAY="install" || WAY="update"
     colorEcho ${GREEN} "¡multi-v2ray ${WAY} exitoso!\n"
