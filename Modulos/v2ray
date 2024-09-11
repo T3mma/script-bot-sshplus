@@ -154,7 +154,10 @@ updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        pip install --break-system-packages v2ray_util
+        apt install python3-venv
+        python3 -m venv v2ray_env
+        source v2ray_env/bin/activate
+        pip install -U v2ray_util
     else
         pip install -U v2ray_util
     fi
