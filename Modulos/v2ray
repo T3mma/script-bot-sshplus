@@ -153,7 +153,11 @@ installDependent() {
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
-    pip install -U v2ray_util
+    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+        pip install --break-system-packages v2ray_util
+    else
+        pip install -U v2ray_util
+    fi
 
     if [[ -e $UTIL_PATH ]]; then
         [[ -z $(cat $UTIL_PATH | grep lang) ]] && echo "lang=en" >>$UTIL_PATH
