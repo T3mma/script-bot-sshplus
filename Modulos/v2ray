@@ -160,12 +160,7 @@ updateProject() {
 
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
         apt install pipx
-        pipx ensurepath
         pipx install v2ray_util
-        echo 'export PATH="$HOME/.local/bin:$PATH"' >>~/.bashrc
-        source ~/.bashrc
-        sudo ln -s $(which v2ray-util) /usr/local/bin/v2ray
-        source ~/.bashrc
     else
         pip install -U v2ray_util
     fi
