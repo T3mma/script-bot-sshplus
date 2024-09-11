@@ -52,10 +52,6 @@ while [[ $# > 0 ]]; do
         INSTALL_WAY=1
         colorEcho ${BLUE} "mantener configuración actualizada\n"
         ;;
-    --zh)
-        CHINESE=1
-        colorEcho ${BLUE} "Instalando la versión en chino..\n"
-        ;;
     *)
         # unknown option
         ;;
@@ -88,12 +84,7 @@ removeV2Ray() {
     bash <(curl -L -s $CLEAN_IPTABLES_SHELL)
 
     # Desinstalar multi-v2ray
-    if [[ $(command -v pipx) ]]; then
-        pipx uninstall v2ray_util
-    else
-        pip uninstall v2ray_util -y
-    fi
-
+    pip uninstall v2ray_util -y
     rm -rf /usr/share/bash-completion/completions/v2ray.bash >/dev/null 2>&1
     rm -rf /usr/share/bash-completion/completions/v2ray >/dev/null 2>&1
     rm -rf /usr/share/bash-completion/completions/xray >/dev/null 2>&1
@@ -160,26 +151,24 @@ installDependent() {
 
     # Verificar si es Ubuntu Server 24.04 o superior
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Crear entorno virtual
-        python3 -m venv myenv
-        source myenv/bin/activate
-        # Instalar pipx en el entorno virtual
-        pip install --upgrade pip
-        pip install pipx
-        pipx ensurepath
-        deactivate
+        # Instalar y configurar pipx
+        if ! command -v pipx >/dev/null 2>&1; then
+            python3 -m pip install --user pipx
+            python3 -m pipx ensurepath
+        fi
     fi
 }
 
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
+    # Verificar si es Ubuntu Server 24.04 o superior
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Activar entorno virtual en Ubuntu 24.04
+        # Crear entorno virtual para la instalación
+        python3 -m venv myenv
         source myenv/bin/activate
-        pip install --upgrade pip
+        pip install -U pip
         pip install -U v2ray_util
-        deactivate
     else
         pip install -U v2ray_util
     fi
