@@ -13,24 +13,17 @@ INSTALL_WAY=0
 
 # Definir variable de operación, 0 para no, 1 para sí
 HELP=0
-
 REMOVE=0
-
 CHINESE=0
 
 BASE_SOURCE_PATH="https://multi.netlify.app"
-
 UTIL_PATH="/etc/v2ray_util/util.cfg"
-
 UTIL_CFG="$BASE_SOURCE_PATH/v2ray_util/util_core/util.cfg"
-
 BASH_COMPLETION_SHELL="$BASE_SOURCE_PATH/v2ray"
-
 CLEAN_IPTABLES_SHELL="$BASE_SOURCE_PATH/v2ray_util/global_setting/clean_iptables.sh"
 
-## CentOS cancelar alias temporalmente
+# Cancelar alias temporalmente en CentOS
 [[ -f /etc/redhat-release && -z $(echo $SHELL | grep zsh) ]] && unalias -a
-
 [[ -z $(echo $SHELL | grep zsh) ]] && ENV_FILE=".bashrc" || ENV_FILE=".zshrc"
 
 #######color code########
@@ -52,25 +45,20 @@ while [[ $# > 0 ]]; do
     --remove)
         REMOVE=1
         ;;
-
     -h | --help)
         HELP=1
         ;;
-
     -k | --keep)
         INSTALL_WAY=1
         colorEcho ${BLUE} "mantener configuración actualizada\n"
         ;;
-
     --zh)
         CHINESE=1
         colorEcho ${BLUE} "Instalando la versión en chino..\n"
         ;;
-
     *)
         # unknown option
         ;;
-
     esac
     shift # past argument or value
 done
@@ -80,7 +68,7 @@ help() {
     echo "bash v2ray.sh [-h|--help] [-k|--keep] [--remove]"
     echo "  -h, --help           Show help"
     echo "  -k, --keep           keep the config.json to update"
-    echo "      --remove         remove v2ray,xray && multi-v2ray"
+    echo "      --remove         remove v2ray, xray && multi-v2ray"
     echo "                       no params to new install"
     return 0
 }
@@ -159,7 +147,6 @@ checkSys() {
     fi
 }
 
-# Instalar dependencias
 installDependent() {
     if [[ ${PACKAGE_MANAGER} == 'dnf' || ${PACKAGE_MANAGER} == 'yum' ]]; then
         ${PACKAGE_MANAGER} install socat crontabs bash-completion which -y
@@ -188,8 +175,7 @@ updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
     if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
-        # Crear entorno virtual para la instalación
-        python3 -m venv myenv
+        # Activar entorno virtual en Ubuntu 24.04
         source myenv/bin/activate
         pip install --upgrade pip
         pip install -U v2ray_util
@@ -212,11 +198,6 @@ updateProject() {
     rm -f /usr/local/bin/xray >/dev/null 2>&1
     ln -s $(which v2ray-util) /usr/local/bin/xray
 
-    # Eliminar el script de bash_completion antiguo de v2ray
-    [[ -e /etc/bash_completion.d/v2ray.bash ]] && rm -f /etc/bash_completion.d/v2ray.bash
-    [[ -e /usr/share/bash-completion/completions/v2ray.bash ]] && rm -f /usr/share/bash-completion/completions/v2ray.bash
-
-    # Actualizar el script de bash_completion de v2ray
     curl $BASH_COMPLETION_SHELL >/usr/share/bash-completion/completions/v2ray
     curl $BASH_COMPLETION_SHELL >/usr/share/bash-completion/completions/xray
     if [[ -z $(echo $SHELL | grep zsh) ]]; then
@@ -224,11 +205,9 @@ updateProject() {
         source /usr/share/bash-completion/completions/xray
     fi
 
-    # Instalar el programa principal de V2ray
     [[ ${INSTALL_WAY} == 0 ]] && bash <(curl -L -s https://multi.netlify.app/go.sh)
 }
 
-# Sincronización de tiempo
 timeSync() {
     if [[ ${INSTALL_WAY} == 0 ]]; then
         echo -e "${Info} Sincronizando el tiempo.. ${Font}"
@@ -246,22 +225,14 @@ timeSync() {
 }
 
 profileInit() {
-    # Limpiar las variables de entorno del módulo v2ray
     [[ $(grep v2ray ~/$ENV_FILE) ]] && sed -i '/v2ray/d' ~/$ENV_FILE && source ~/$ENV_FILE
-
-    # Resolver el problema de visualización de chino en Python3
     [[ -z $(grep PYTHONIOENCODING=utf-8 ~/$ENV_FILE) ]] && echo "export PYTHONIOENCODING=utf-8" >>~/$ENV_FILE && source ~/$ENV_FILE
-
-    # Nueva configuración para una instalación completa
     [[ ${INSTALL_WAY} == 0 ]] && v2ray new
-
     echo ""
 }
 
 installFinish() {
-    # Volver al punto de partida
     cd ${BEGIN_PATH}
-
     [[ ${INSTALL_WAY} == 0 ]] && WAY="install" || WAY="update"
     colorEcho ${GREEN} "¡multi-v2ray ${WAY} exitoso!\n"
 
