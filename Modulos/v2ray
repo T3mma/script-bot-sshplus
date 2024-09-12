@@ -83,7 +83,7 @@ removeV2Ray() {
     bash <(curl -L -s $CLEAN_IPTABLES_SHELL)
 
     # Desinstalar multi-v2ray
-    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+    if [[ $(lsb_release -is) == "Ubuntu" && $(printf '%s\n' "24.04" "$(lsb_release -rs)" | sort -V | head -n1) == "24.04" ]]; then
         pipx uninstall v2ray_util
     else
         pip uninstall v2ray_util -y
@@ -158,7 +158,7 @@ installDependent() {
 updateProject() {
     [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
 
-    if [[ $(lsb_release -is) == "Ubuntu" && $(lsb_release -rs) > "24.04" ]]; then
+    if [[ $(lsb_release -is) == "Ubuntu" && $(printf '%s\n' "24.04" "$(lsb_release -rs)" | sort -V | head -n1) == "24.04" ]]; then
         apt install pipx -y
         pipx ensurepath
         pipx install v2ray_util
