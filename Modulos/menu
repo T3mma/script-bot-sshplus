@@ -80,7 +80,7 @@ menu() {
    #limiter
    function limit1() {
       clear
-      echo -e "\n\033[1;32mINICIANDO el LIMITER... \033[0m"
+      echo -e "\n\033[1;32mINICIANDO EL LIMITER... \033[0m"
       echo ""
       fun_bar 'screen -dmS limiter limiter' 'sleep 3'
       [[ $(grep -wc "limiter" /etc/autostart) = '0' ]] && {
@@ -430,7 +430,14 @@ menu() {
          ;;
       11)
          clear
-         apt install speedtest-cli -y && speedtest
+         if ! dpkg -l | grep -q speedtest-cli; then
+            echo "speedtest-cli no está instalado. Instalando..."
+            apt install speedtest-cli -y
+         fi
+
+         # Ejecuta speedtest
+         speedtest
+
          echo -ne "\n\033[1;31mENTER \033[1;33mpara VOLVER al \033[1;32mMENU!\033[0m"
          read
          ;;

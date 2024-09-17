@@ -78,7 +78,7 @@ if [[ "$resp" = "1" ]]; then
 			echo ""
 			pkill -f "$user" >/dev/null 2>&1
 			deluser --force $user >/dev/null 2>&1
-			echo -e "\E[41;1;37m Usuario $user removido com sucesso! \E[0m"
+			echo -e "\E[41;1;37m Usuario $user eliminado con éxito! \E[0m"
 			grep -v ^$user[[:space:]] /root/usuarios.db >/tmp/ph
 			cat /tmp/ph >/root/usuarios.db
 			rm /etc/SSHPlus/senha/$user 1>/dev/null 2>/dev/null

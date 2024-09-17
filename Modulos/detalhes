@@ -13,8 +13,7 @@ if [ -f /etc/lsb-release ]; then
     echo -e "\033[1;33mKernel Release: \033[1;37m$(uname -r)"
     if [ -f /etc/os-release ]; then
         devlike=$(cat /etc/os-release | grep LIKE | awk -F = {'print $2'})
-        echo -e "\033[1;33mDerivado de OS: \033[1;37m$devlike"
-        echo -e "\033[1;33mVENTA DE DROPLET 🇦🇷: \033[1;37m @vps10"
+        echo -e "\033[1;33mDERIVADO DE OS: \033[1;37m$devlike"
         echo ""
     fi
 else
@@ -36,12 +35,12 @@ if [ -f /proc/cpuinfo ]; then
     echo -e "\033[1;33mNucleos:\033[1;37m $cpucores"
     echo -e "\033[1;33mMemoria Cache:\033[1;37m$cache"
     echo -e "\033[1;33mArquitectura: \033[1;37m$(uname -p)"
-    echo -e "\033[1;33multilizado: \033[37m$uso"
+    echo -e "\033[1;33mUtilizado: \033[37m$uso"
     echo ""
 else
     echo -e "\033[1;32mPROCESSADOR\033[0m"
     echo ""
-    echo "No fue posible obtener informacion"
+    echo "No fue posible obtener información"
 fi
 
 if free 1>/dev/null 2>/dev/null; then
@@ -55,15 +54,15 @@ if free 1>/dev/null 2>/dev/null; then
     echo -e "\033[1;33mTotal: \033[1;37m$ram1"
     echo -e "\033[1;33mEn Uso: \033[1;37m$ram3"
     echo -e "\033[1;33mLibre: \033[1;37m$ram2"
-    echo -e "\033[1;33multilizado: \033[37m$usoram"
+    echo -e "\033[1;33mUtilizado: \033[37m$usoram"
     echo ""
 else
     echo -e "\033[1;31mMEMORIA RAM\033[0m"
     echo ""
-    echo "No fue posible obter info"
+    echo "No fue posible obtener info"
 fi
 [[ ! -e /bin/version ]] && rm -rf /etc/SSHPlus
-echo -e "\033[1;31m• \033[1;31mSERVICIOS EN EJECUCION\033[1;31m •\033[0m"
+echo -e "\033[1;31m• \033[1;31mSERVICIOS EN EJECUCIÓN\033[1;31m •\033[0m"
 echo ""
 PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
 for porta in $(echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq); do
