@@ -1,18 +1,19 @@
 #!/bin/bash
-[[ $(screen -list| grep -c 'bot_teste') == '0' ]] && {
+[[ $(screen -list | grep -c 'bot_teste') == '0' ]] && {
     clear
-    echo -e "\E[44;1;37m     ATIVACÃO BOT SSH TESTE     \E[0m"
+    echo -e "\E[44;1;37m     ACTIVACIÓN BOT SSH PRUEBA     \E[0m"
     echo ""
-    echo -ne "\n\033[1;32mINFORME O TOKEN\033[1;37m: "
+    echo -ne "\n\033[1;32mINGRESE EL TOKEN\033[1;37m: "
     read token
     clear
     echo "-----------MODELO-----------"
     echo "=×=×=×=×=×=×=×=×=×=×=×=×=×="
-    echo "   MENSAGEM DE BOAS VINDAS   "
+    echo "   MENSAJE DE BIENVENIDA   "
     echo "=×=×=×=×=×=×=×=×=×=×=×=×=×="
-    echo "        MENSAGEM FINAL         "
+    echo "        MENSAJE FINAL         "
     echo ""
-    echo -ne "\033[1;32mMENSAGEM DE BOAS VINDAS:\033[1;37m "
+    echo -ne "\033[1;32mMENSAJE DE BIENVENIDA:\033[1;37m "
+
     read bvindo
     echo -ne "\033[1;32mMENSAJE FINAL:\033[1;37m "
     read mfinal
@@ -30,14 +31,14 @@
     echo -ne "\033[1;32mLINK DE BOTON 3:\033[1;37m "
     read link3
     clear
-    echo -ne "\033[1;32mDURACION DE TESTE(EN HORAS):\033[1;37m "
+    echo -ne "\033[1;32mDURACIÓN DE PRUEBA(EN HORAS):\033[1;37m "
     read dtempo
     clear
     echo ""
-    echo -e "\033[1;32mINICIANDO BOT TESTE \033[0m\n"
+    echo -e "\033[1;32mINICIANDO BOT TEST \033[0m\n"
     cd $HOME/BOT
     rm -rf $HOME/BOT/botssh
-    wget https://raw.githubusercontent.com/vpsvip7/1s/main/botssh >/dev/null 2>&1
+    wget https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/bot/botssh >/dev/null 2>&1
     chmod 777 botssh
     echo ""
     sleep 1
@@ -50,13 +51,13 @@
     sed -i "s/!#link3#!/$link3/g" $HOME/BOT/botssh >/dev/null 2>&1
     sed -i "s/!#dtempo#!/$dtempo/g" $HOME/BOT/botssh >/dev/null 2>&1
     sleep 1
-    screen -dmS bot_teste ./botssh $token > /dev/null 2>&1
+    screen -dmS bot_teste ./botssh $token >/dev/null 2>&1
     clear
-    echo "BOT ATIVADO"
+    echo "BOT ACTIVADO"
     menu
 } || {
     screen -r -S "bot_teste" -X quit
     clear
-    echo "BOT DESATIVADO"
+    echo "BOT DESACTIVADO"
     menu
 }

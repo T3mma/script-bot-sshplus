@@ -103,7 +103,7 @@ vrs2=$(sed -n '1 p' /tmp/att | sed -e 's/[^0-9]//ig')
 
   rm /tmp/att >/dev/null 2>&1
 
-  echo -e " \033[1;33m MAS INFO \033[1;31m(\033[1;36mTELEGRAM\033[1;31m): \033[1;37mEDIT:@t3mma\n"
+  echo -e " \033[1;33m MÁS INFO \033[1;31m(\033[1;36mTELEGRAM\033[1;31m): \033[1;37mEDIT:@T3MMA\n"
 
   echo -ne " \033[1;31m ENTER \033[1;33mpara volver al \033[1;32mMENU! \033[0m"
   read
@@ -114,7 +114,7 @@ vrs2=$(sed -n '1 p' /tmp/att | sed -e 's/[^0-9]//ig')
 
   echo -e "  \033[1;36mEXISTE UNA NUEVA ACTUALIZACIÓN DISPONIBLE!\033[1;33m\n"
 
-  echo -e "  \033[1;33mMAS INFO \033[1;31m(\033[1;36mTELEGRAM\033[1;31m): \033[1;37mEDIT:@t3mma\n"
+  echo -e "  \033[1;33mMÁS INFO \033[1;31m(\033[1;36mTELEGRAM\033[1;31m): \033[1;37mEDIT:@T3MMA\n"
 
   echo -e "  \033[1;32mDETALLES DE ACTUALIZACIÓN:\033[0m\n"
 

@@ -253,7 +253,6 @@ menu() {
       21)
          clear
          addhost
-         #echo -ne "\n\033[1;31mCOMPRAR DROPLET EN TELEGRAM @vps10 \033[1;33m \n ENTER para volvet al \033[1;32mMENU!\033[0m"
          read
          menu2
          ;;
