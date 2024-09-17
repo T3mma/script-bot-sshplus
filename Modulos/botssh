@@ -51,7 +51,7 @@ fun_botOnOff() {
                 wget -qO- sshplus.xyz/script/ShellBot.sh >/etc/SSHPlus/ShellBot.sh
             }
             [[ ! -e "/etc/SSHPlus/ShellBot.sh" ]] && {
-                wget -qO- https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/Install/ShellBot.sh >/etc/SSHPlus/ShellBot.sh
+                wget -qO- https://raw.githubusercontent.com/T3mma/script-bot-sshplus/main/Modulos/ShellBot.sh >/etc/SSHPlus/ShellBot.sh
             }
             cd /etc/SSHPlus
             screen -dmS bot_plus ./bot $tokenbot $iduser >/dev/null 2>&1
