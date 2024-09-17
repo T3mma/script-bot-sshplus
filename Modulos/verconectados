@@ -25,7 +25,7 @@ case $opcion in
 2 | 02)
   clear
   PSIPHON_PORT_443=$(sudo netstat -tn | awk '$4 ~ /:443$/ {print $5}' | cut -d: -f1 | sort | uniq -c | wc -l)
-  echo "CONEXIONES EN EL PUERTO 443: \033[1;32m$PSIPHON_PORT_443\033[0m"
+  echo -e "CONEXIONES EN EL PUERTO 443: \033[1;32m$PSIPHON_PORT_443\033[0m"
   echo -ne "\n\033[1;31mENTER \033[1;33mPARA VOLVER AL \033[1;32mMENU!\033[0m"
   read
   clear
@@ -34,7 +34,7 @@ case $opcion in
 3 | 03)
   clear
   PSIPHON_PORT_22=$(sudo netstat -tn | awk '$4 ~ /:22$/ {print $5}' | cut -d: -f1 | sort | uniq -c | wc -l)
-  echo "CONEXIONES EN EL PUERTO 22: \033[1;32m$PSIPHON_PORT_22\033[0m"
+  echo -e "CONEXIONES EN EL PUERTO 22: \033[1;32m$PSIPHON_PORT_22\033[0m"
   echo -ne "\n\033[1;31mENTER \033[1;33mPARA VOLVER AL \033[1;32mMENU!\033[0m"
   read
   clear
