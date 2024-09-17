@@ -14,16 +14,19 @@ read -p "Opción: " opcion
 
 case $opcion in
 1 | 01)
+  clear
   PSIPHON_PORT_80=$(sudo netstat -tn | awk '$4 ~ /:80$/ {print $5}' | cut -d: -f1 | sort | uniq -c | wc -l)
   echo "CONEXIONES EN EL PUERTO 80 : $PSIPHON_PORT_80"
   verconectados
   ;;
 2 | 02)
+  clear
   PSIPHON_PORT_443=$(sudo netstat -tn | awk '$4 ~ /:443$/ {print $5}' | cut -d: -f1 | sort | uniq -c | wc -l)
   echo "CONEXIONES EN EL PUERTO 443 : $PSIPHON_PORT_443"
   verconectados
   ;;
 3 | 03)
+  clear
   PSIPHON_PORT_22=$(sudo netstat -tn | awk '$4 ~ /:22$/ {print $5}' | cut -d: -f1 | sort | uniq -c | wc -l)
   echo "CONEXIONES EN EL PUERTO 22 : $PSIPHON_PORT_22"
   verconectados
@@ -31,9 +34,13 @@ case $opcion in
 4 | 04)
   echo "Volviendo..."
   sleep 1
+  clear
   menupsiphon
   ;;
 *)
   echo "Opción inválida"
+  sleep 1
+  clear
+  verconectados
   ;;
 esac
