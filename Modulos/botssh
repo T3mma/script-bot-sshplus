@@ -68,7 +68,7 @@ fun_botOnOff() {
             cd $HOME
         }
         fun_bar 'fun_bot1'
-        [[ $(ps x | grep "bot_plus" | grep -v grep | wc -l) != '0' ]] && echo -e "\n\033[1;32m BOT SSHPLUS ACTIVADO !\033[0m" || echo -e "\n\033[1;31m ERROR! REANALISE SUS INFORMACIONES\033[0m"
+        [[ $(ps x | grep "bot_plus" | grep -v grep | wc -l) != '0' ]] && echo -e "\n\033[1;32m BOT SSHPLUS ACTIVADO !\033[0m" || echo -e "\n\033[1;31m ERROR! REANALICE SUS INFORMACIONES\033[0m"
         sleep 2
         menu
     } || {
