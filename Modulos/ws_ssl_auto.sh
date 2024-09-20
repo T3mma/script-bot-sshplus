@@ -71,10 +71,13 @@ if [[ -z "$ssl_port" ]] && [[ -z "$py_port" ]]; then
     }
 
     fun_bar 'inst_ssl'
-
+    echo -e "\033[1;33m                 CONFIGURANDO SSL... "
+    fun_bar 'inst_ssl'
     echo -e "\033[1;33m                 CONFIGURANDO PYTHON... "
 
     inst_py() {
+        pkill -f 80
+        pkill python
         apt install python -y
         apt install screen -y
 
@@ -330,8 +333,8 @@ def main(host=LISTENING_ADDR, port=LISTENING_PORT):
     print "\n ==============================\n"
     print "\n         PYTHON PROXY          \n"
     print "\n ==============================\n"
-    print "corriendo ip: " + LISTENING_ADDR
-    print "corriendo port: " + str(LISTENING_PORT) + "\n"
+    print "Corriendo ip: " + LISTENING_ADDR
+    print "Corriendo port: " + str(LISTENING_PORT) + "\n"
     print "Se ha Iniciado Por Favor Cierre el Terminal\n"
     
     server = Server(LISTENING_ADDR, LISTENING_PORT)
