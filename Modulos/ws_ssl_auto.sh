@@ -45,6 +45,8 @@ py_port=$(lsof -i :80)
 
 if [[ -z "$ssl_port" ]] && [[ -z "$py_port" ]]; then
     echo -e "\033[1;33mPuertos libres. Activando SSL y Python..."
+    echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
+    echo ""
     echo -e "\033[1;33m                 INSTALANDO SSL... "
 
     inst_ssl() {
@@ -374,5 +376,3 @@ else
         pkill -f python
     fi
 fi
-
-echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
