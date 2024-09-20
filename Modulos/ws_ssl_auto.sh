@@ -11,7 +11,7 @@ fun_bar() {
     ) >/dev/null 2>&1 &
     tput civis
     echo -e "\033[1;31m---------------------------------------------------\033[1;37m"
-    echo -ne "${col7}    ESPERE..\033[1;35m["
+    echo -ne "${col7}    ESPERE...\033[1;35m["
     while true; do
         for ((i = 0; i < 18; i++)); do
             echo -ne "\033[1;34m#"
@@ -31,59 +31,51 @@ fun_bar() {
 
 clear && clear
 echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
-echo -e "\033[1;32m              WS + SSL | 2024 "
+echo -e "\033[1;32m              WS + SSL |2024 "
 echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
 echo -e "\033[1;36m              SCRIPT AUTOCONFIGURACIÓN "
 echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
-echo -e "\033[1;37mRequisito: Puertos libres, 80 y 443"
+echo -e "\033[1;37mRequisitos: puerto libre ,80 y el 443"
 echo
-echo -e "\033[1;33mVerificando estado de los puertos..."
+echo -e "\033[1;33m                 INSTALANDO SSL... "
+inst_ssl() {
 
-# Verificar si los puertos 80 y 443 están en uso
-ssl_port=$(lsof -i :443)
-py_port=$(lsof -i :80)
+    apt-get install stunnel4 -y
+    echo -e "client = no\n[SSL]\ncert = /etc/stunnel/stunnel.pem\naccept = 443 \nconnect = 127.0.0.1:80" >/etc/stunnel/stunnel.conf
+    openssl genrsa -out stunnel.key 2048 >/dev/null 2>&1
+    (
+        echo ""
+        echo ""
+        echo ""
+        echo ""
+        echo ""
+        echo ""
+        echo "@cloudflare"
+    ) | openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt
+    cat stunnel.crt stunnel.key >stunnel.pem
+    mv stunnel.pem /etc/stunnel/
+    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+    service stunnel4 restart
+    rm -rf /etc/ger-frm/stunnel.crt
+    rm -rf /etc/ger-frm/stunnel.key
+    rm -rf /root/stunnel.crt
+    rm -rf /root/stunnel.key
 
-if [[ -z "$ssl_port" ]] && [[ -z "$py_port" ]]; then
-    echo -e "\033[1;33mPuertos libres. Activando SSL y Python..."
-    echo -e "\033[1;33m                 INSTALANDO SSL... "
+}
+fun_bar 'inst_ssl'
+echo -e "\033[1;33m                 CONFIGURANDO SSL... "
+fun_bar 'inst_ssl'
+echo -e "\033[1;33m                 CONFIGURANDO PYTHON... "
+inst_py() {
 
-    inst_ssl() {
-        apt-get install stunnel4 -y
-        echo -e "client = no\n[SSL]\ncert = /etc/stunnel/stunnel.pem\naccept = 443 \nconnect = 127.0.0.1:80" >/etc/stunnel/stunnel.conf
-        openssl genrsa -out stunnel.key 2048 >/dev/null 2>&1
-        (
-            echo ""
-            echo ""
-            echo ""
-            echo ""
-            echo ""
-            echo ""
-            echo "@cloudflare"
-        ) | openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt
-        cat stunnel.crt stunnel.key >stunnel.pem
-        mv stunnel.pem /etc/stunnel/
-        sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
-        service stunnel4 restart
-        rm -rf /etc/ger-frm/stunnel.crt
-        rm -rf /etc/ger-frm/stunnel.key
-        rm -rf /root/stunnel.crt
-        rm -rf /root/stunnel.key
-    }
+    pkill -f 80
+    pkill python
+    apt install python -y
+    apt install screen -y
 
-    fun_bar 'inst_ssl'
-    echo -e "\033[1;33m                 CONFIGURANDO SSL... "
-    fun_bar 'inst_ssl'
-    echo -e "\033[1;33m                 CONFIGURANDO PYTHON... "
+    pt=$(netstat -nplt | grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
 
-    inst_py() {
-        pkill -f 80
-        pkill python
-        apt install python -y
-        apt install screen -y
-
-        pt=$(netstat -nplt | grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
-
-        cat <<EOF >proxy.py
+    cat <<EOF >proxy.py
 import socket, threading, thread, select, signal, sys, time, getopt
 
 # CONFIG
@@ -95,7 +87,7 @@ PASS = ''
 BUFLEN = 4096 * 4
 TIMEOUT = 60
 DEFAULT_HOST = "127.0.0.1:$pt"
-RESPONSE = 'HTTP/1.1 101 <b><font color="yellow"> SSL+PY </color></b><font color="gray">@T3mma</font>\r\nConnection: Upgrade\r\nUpgrade: websocket\r\n\r\nHTTP/1.1 200 Connection Established\r\n\r\n'
+RESPONSE = 'HTTP/1.1 101 <b><font color="yellow"> SSL+PY </color></b><font color="gray">@T3MMA</font>\r\nConnection: Upgrade\r\nUpgrade: websocket\r\n\r\nHTTP/1.1 200 Connection Established\r\n\r\n'
 
 class Server(threading.Thread):
     def __init__(self, host, port):
@@ -353,25 +345,10 @@ if __name__ == '__main__':
     main()
 EOF
 
-        screen -dmS pythonwe python proxy.py -p 80 &
-    }
+    screen -dmS pythonwe python proxy.py -p 80 &
 
-    fun_bar 'inst_py'
-    rm -rf proxy.py
-    echo -e "             SSL + PYTHON Instalado"
-else
-    echo -e "\033[1;33mLos puertos 80 y/o 443 están en uso. Cerrando puertos..."
-
-    # Cerrar puertos SSL y Python
-    if [[ -n "$ssl_port" ]]; then
-        echo -e "\033[1;31mCerrando puerto SSL (443)..."
-        pkill -f stunnel
-    fi
-
-    if [[ -n "$py_port" ]]; then
-        echo -e "\033[1;31mCerrando puerto Python (80)..."
-        pkill -f python
-    fi
-fi
-
-echo -e "\033[1;31m———————————————————————————————————————————————————\033[1;37m"
+}
+fun_bar 'inst_py'
+rm -rf proxy.py
+echo -e "             SSL + PYTHON INSTALADO"
+echo
